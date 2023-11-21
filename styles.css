@@ -8,3 +8,9 @@ h1{
 html{
     background-color: rgb(153, 148, 103);
 }
+body{
+    align-items: center;
+}
+.vegeta{
+    text-align: center;
+}
