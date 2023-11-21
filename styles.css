@@ -12,6 +12,6 @@ body{
     align-items: center;
 }
 .vegeta{
-    text-align: center;
+    display: flex;
     justify-content: center;
 }
