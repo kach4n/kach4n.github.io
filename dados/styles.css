@@ -18,6 +18,19 @@ body {
 .group{
     display: flex;
 }
+.result-view{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 248px;
+    height: 240px;
+    background-color: beige;
+    border-radius: 5px;
+    font-family: fantasy, sans-serif;
+    font-size: xx-large;
+    background-color: rgb(35, 158, 31);
+    margin-bottom: 2px;
+}
 
 .box{
     width: 80px;
@@ -35,5 +48,19 @@ body {
 }
 
 .box:hover{
-    background-color: rgb(42, 114, 40); /* Change the background color on hover */
+    background-color: rgb(35, 158, 31); /* Change the background color on hover */
+}
+
+.home-container{
+    display: flex;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    background-color: rgb(42, 114, 40);
+    width: 70px;
+    border-radius: 5px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
 }

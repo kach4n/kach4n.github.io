@@ -11,17 +11,21 @@
     <link rel="manifest" href="../images/site.webmanifest">
 </head>
 <body>
+    <div class="home-container" onclick="goHome()">HOME</div>
+    
     <div class="container">
+        <div class="result-view" id="resultView">Choose a dice</div>
         <div class="group">
-            <div class="box" id="box1">D4</div>
-            <div class="box" id="box2">D6</div>
-            <div class="box" id="box3">D8</div>
+            <div class="box" id="box1" onclick="rollDice(4)">D4</div>
+            <div class="box" id="box2" onclick="rollDice(6)">D6</div>
+            <div class="box" id="box3" onclick="rollDice(8)">D8</div>
         </div>
         <div class="group">
-            <div class="box" id="box4">D10</div>
-            <div class="box" id="box5">D12</div>
-            <div class="box" id="box6">D20</div>
+            <div class="box" id="box4" onclick="rollDice(10)">D10</div>
+            <div class="box" id="box5" onclick="rollDice(12)">D12</div>
+            <div class="box" id="box6" onclick="rollDice(20)">D20</div>
         </div>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
