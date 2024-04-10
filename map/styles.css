@@ -1,0 +1,23 @@
+#map {
+    z-index: 1;
+    position: absolute;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+    width:100vw;
+    height:100vh;
+}
+
+.home-container{
+    display: flex;
+    position: absolute;
+    z-index: 2 !important;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    background-color: rgb(42, 114, 40);
+    width: 70px;
+    border-radius: 5px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+}
