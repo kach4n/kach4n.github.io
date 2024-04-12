@@ -2,9 +2,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibHVpemthY2hhbiIsImEiOiJjbGl0NTV1dDgwMG12M3FyM
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/satellite-streets-v12',
-    zoom: 6.5,
-    center: [-49.1, -22.3],
-    projection: 'mercator',
+    zoom: 5,
+    center: [-50.1, -22.3],
+    projection: 'globe',
     attributionControl: false
 });
 
@@ -13,9 +13,8 @@ const nav = new mapboxgl.NavigationControl({
 })
 
 map.on('load', () => {
-    map.resize()
     //map.setFog({});
-    //map.addControl(nav, 'top-right')
+    map.addControl(nav, 'top-right')
 });
 
 function goHome(){

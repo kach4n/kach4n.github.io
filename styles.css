@@ -33,12 +33,12 @@ button {
     color: #fff;
     border: none;
     border-radius: 5px;
-    transition: transform 0.9s ease;
+    /*transition: transform 0.9s ease;*/
 }
 
-button:hover {
+/*button:hover {
     transform: rotateZ(360deg);
-}
+}*/
 
 .horizontal-btns {
     display: flex;
