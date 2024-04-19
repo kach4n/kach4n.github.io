@@ -60,8 +60,7 @@ map.on('load', async () => {
     
             // Create HTML content for the popup
             const popupContent = `<h3>${properties.name}</h3>
-                                  <p><strong>País:</strong> ${properties.admin}</p>
-                                  <p><strong>iza linda</strong> ${''}</p>`;
+                                  <p><strong>País:</strong> ${properties.admin}</p>`;
     
             // Create a popup and display it on the map
             new mapboxgl.Popup()
