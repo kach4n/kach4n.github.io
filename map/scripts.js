@@ -15,65 +15,26 @@ const nav = new mapboxgl.NavigationControl({
 map.on('load', async () => {
     //map.setFog({});
     map.addControl(nav, 'top-right')
-    const zipFilePath = 'word-json.zip';
     try {
-        // Fetch the zip file
-        const response = await fetch(zipFilePath);
-        if (!response.ok) {
-            throw new Error('Failed to fetch zip file');
-        }
-
-        // Load the zip file using jszip
-        const zip = await JSZip.loadAsync(await response.blob());
-
-        // Extract the JSON file (assuming it's named data.json inside the zip)
-        const jsonFile = await zip.file('ne_10m_admin_1_states_provinces_scale_rank.json').async('string');
-
-        // Parse the JSON data
-        const jsonData = JSON.parse(jsonFile);
-
-        // Add the JSON data as a source to the map
-        map.addSource('my-json-data', {
-            type: 'geojson',
-            data: jsonData // Use the parsed JSON data
+        var jsonParquet = []
+        const parquetConverter = await new ParquetConverter('world-parquet.parquet')
+        await parquetConverter.convertAndReturnJSON()
+        .then(json => {
+            console.log(json)
+            jsonParquet = json
+            addSource('jsonParquet', jsonParquet)
+            addLayer('jsonParquetLayer', 'jsonParquet')
+            addClickLayer('jsonParquetLayer')
+        })
+        .catch(error => {
+            console.error('Erro durante a conversão:', error);
         });
 
-        // Add a layer to the map using the added source
-        map.addLayer({
-            id: 'my-json-layer',
-            type: 'fill',
-            source: 'my-json-data',
-            paint: {
-                'fill-color': 'orange', // Initial fill color (blue)
-                'fill-opacity': 0.9,
-                'fill-outline-color': 'black', // Border color (black)
-                'fill-outline-width': 1 // Border width (in pixels)
-            }
-            
-        });
-        map.on('click', 'my-json-layer', (e) => {
-            // Get the first feature from the clicked layer
-            const feature = e.features[0];
-    
-            // Extract properties from the clicked feature
-            const properties = feature.properties;
-    
-            // Create HTML content for the popup
-            const popupContent = `<h3>${properties.name}</h3>
-                                  <p><strong>País:</strong> ${properties.admin}</p>`;
-    
-            // Create a popup and display it on the map
-            new mapboxgl.Popup()
-                .setLngLat(e.lngLat)
-                .setHTML(popupContent)
-                .addTo(map);
-        });
-        map.on('mouseenter', 'my-json-layer', () => {
+        map.on('mouseenter', 'jsonParquetLayer', () => {
             map.getCanvas().style.cursor = 'pointer';
         });
         
-        // Change it back to the default cursor when no longer hovering
-        map.on('mouseleave', 'my-json-layer', () => {
+        map.on('mouseleave', 'jsonParquetLayer', () => {
             map.getCanvas().style.cursor = '';
         });
         console.log(`aparently allright`)
@@ -82,7 +43,47 @@ map.on('load', async () => {
     console.error('Error loading and processing zip file:', error);
 }});
 
+function addSource(name, geojson){
+    map.addSource(name, {
+        type: 'geojson',
+        data: geojson // Use the parsed JSON data
+    });
+}
 
+function addLayer(name, source){
+    map.addLayer({
+        id: name,
+        type: 'fill',
+        source: source,
+        paint: {
+            'fill-color': 'orange', // Initial fill color (blue)
+            'fill-opacity': 0.9,
+            'fill-outline-color': 'black', // Border color (black)
+            'fill-outline-width': 1 // Border width (in pixels)
+        }
+        
+    });
+}
+
+function addClickLayer(layer){
+    map.on('click', layer, (e) => {
+        // Get the first feature from the clicked layer
+        const feature = e.features[0];
+
+        // Extract properties from the clicked feature
+        const properties = feature.properties;
+
+        // Create HTML content for the popup
+        const popupContent = `<h3>${properties.name}</h3>
+                              <p><strong>País:</strong> ${properties.admin}</p>`;
+
+        // Create a popup and display it on the map
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(popupContent)
+            .addTo(map);
+    });
+}
 function goHome(){
     window.location.href = '/';
 }
